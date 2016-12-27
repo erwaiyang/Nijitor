@@ -48,7 +48,7 @@ router.post('/sign_in', Celebrate(signInSchema), async (req, res, next) => {
     if (!result) {
       return next({ status: 401, message: 'user not found' });
     }
-    res.send({ result });
+    res.sendStatus(200);
   } catch (err) {
     return next(err);
   }

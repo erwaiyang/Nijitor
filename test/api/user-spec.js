@@ -7,6 +7,10 @@ const request = require('supertest').agent(server);
 const truncateTable = require('../utils/truncateTable');
 
 describe('user API', () => {
+  before(async () => {
+    await truncateTable('users');
+  });
+
   describe('return 404 if path does not exist', () => {
     it('GET /api/user/whateverNotExists should return 404', (done) => {
       request
@@ -21,10 +25,6 @@ describe('user API', () => {
   });
 
   describe('sign up api', () => {
-    before(async () => {
-      await truncateTable('users');
-    });
-
     it('return 400 if any of username or password is not provided', (done) => {
       request
         .post('/api/user/sign_up')
@@ -55,6 +55,51 @@ describe('user API', () => {
         .end((err, res) => {
           expect(res.status).to.equal(409);
           expect(res.text).to.equal('username already exists');
+          return done();
+        });
+    });
+  });
+
+  describe('sign in api', () => {
+    it('return 400 if any of username or password is not provided', (done) => {
+      request
+        .post('/api/user/sign_in')
+        .expect(400)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          return done();
+        });
+    });
+    it('return 401 if user failed to sign in', (done) => {
+      request
+        .post('/api/user/sign_in')
+        .set('Accept', 'application/json')
+        .send({ username: 'wrong_username', password: '123' })
+        .expect(401)
+        .end((err, res) => {
+          expect(res.status).to.equal(401);
+          expect(res.text).to.equal('user not found');
+        });
+      request
+        .post('/api/user/sign_in')
+        .set('Accept', 'application/json')
+        .send({ username: 'jean', password: 'wrong_password' })
+        .expect(401)
+        .end((err, res) => {
+          expect(res.status).to.equal(401);
+          expect(res.text).to.equal('user not found');
+          return done();
+        });
+    });
+    it('return 200 if user sign in successfully', (done) => {
+      request
+        .post('/api/user/sign_in')
+        .set('Accept', 'application/json')
+        .send({ username: 'jean', password: '123' })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.text).to.equal('OK');
           return done();
         });
     });
