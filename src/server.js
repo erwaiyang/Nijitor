@@ -1,5 +1,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const Celebrate = require('celebrate');
+
+const routes = require('./routes');
 
 const app = express();
 
@@ -16,19 +19,14 @@ app.use((req, res, next) => {
 });
 
 /* routes */
-app.get('/', async (req, res, next) => {
-  try {
-    const response = await { ok: 200 };
-    res.send(response);
-  } catch (err) {
-    return next(err);
-  }
-});
+app.use('/api', routes);
 
 /* 404 Not Found */
 app.use((req, res) => {
   res.sendStatus(404);
 });
+
+app.use(Celebrate.errors());
 
 app.use((err, req, res) => {
   res.status(err.status || 500);
