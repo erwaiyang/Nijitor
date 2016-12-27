@@ -19,10 +19,16 @@ const signUpSchema = {
 };
 router.post('/sign_up', Celebrate(signUpSchema), async (req, res, next) => {
   try {
-    const { password } = req.body;
-    const hash = await getEncryptedPassword(password);
-    res.send({ encrypted: hash });
+    const { username, password } = req.body;
+    const sql = 'INSERT INTO users (username, password) VALUES (?,?);';
+    const encryptedPassword = await getEncryptedPassword(password);
+    const result = (await query(sql, [username, encryptedPassword]));
+    if (!result.affectedRows) {
+      return next({ status: 500, message: 'failed to create a new user' });
+    }
+    res.sendStatus(200);
   } catch (err) {
+    if (err.code === 'ER_DUP_ENTRY') return next({ status: 409, message: 'username already exists' });
     return next(err);
   }
 });
