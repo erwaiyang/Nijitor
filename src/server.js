@@ -28,9 +28,10 @@ app.use((req, res) => {
 
 app.use(Celebrate.errors());
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.send(err.message);
+  return next();
 });
 
 const SERVER_PORT = process.env.PORT || 4000;
