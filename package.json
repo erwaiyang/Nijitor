@@ -7,8 +7,8 @@
     "start": "nodemon --harmony-async-await src/server",
     "lint": "eslint src",
     "lint:test": "eslint test",
-    "test": "NODE_ENV=test mocha --harmony-async-await ./test/**/*-spec.js",
-    "test:watch": "NODE_ENV=test mocha --harmony-async-await --watch ./test/**/*.js"
+    "test": "NODE_ENV=test nyc mocha ./test/**/*-spec.js",
+    "test:watch": "NODE_ENV=test mocha --watch ./test/**/*.js"
   },
   "keywords": [
     "Nijitor",
@@ -30,8 +30,17 @@
     "eslint": "^3.12.2",
     "eslint-config-airbnb-base": "^11.0.0",
     "eslint-plugin-import": "^2.2.0",
+    "istanbul": "1.0.0-alpha.2",
     "mocha": "^3.2.0",
+    "mocha-istanbul": "^0.3.0",
     "nodemon": "^1.11.0",
+    "nyc": "^10.0.0",
     "supertest": "^2.0.1"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "report-dir": "./coverage"
   }
 }
