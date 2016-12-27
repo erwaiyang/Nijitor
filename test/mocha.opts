@@ -1,4 +1,3 @@
 --ui bdd
 --colors
 --harmony-async-await
--R mocha-istanbul
