@@ -4,6 +4,7 @@
   "description": "Prototype of Nijitor",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon --harmony-async-await src/server",
     "test": "mocha"
   },
   "keywords": [
@@ -13,5 +14,12 @@
     "role-playing"
   ],
   "author": "Jean Yang",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }
