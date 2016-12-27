@@ -1,5 +1,3 @@
-const DEBUG = process.env.NODE_ENV !== 'production';
-
 const bodyParser = require('body-parser');
 const express = require('express');
 
@@ -19,7 +17,7 @@ app.use((req, res, next) => {
 
 /* routes */
 app.get('/', async (req, res, next) => {
-  try{
+  try {
     const response = await { ok: 200 };
     res.send(response);
   } catch (err) {

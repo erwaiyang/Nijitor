@@ -1,0 +1,11 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "new-cap": 0,
+    "no-console": 0,
+    "camelcase": 0,
+    "max-len": 0,
+    "arrow-body-style": 0,
+    "consistent-return": 0
+  }
+}

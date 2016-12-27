@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --harmony-async-await src/server",
+    "lint": "eslint src",
     "test": "mocha"
   },
   "keywords": [
@@ -20,6 +21,9 @@
     "express": "^4.14.0"
   },
   "devDependencies": {
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-plugin-import": "^2.2.0",
     "nodemon": "^1.11.0"
   }
 }
