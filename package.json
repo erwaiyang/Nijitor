@@ -1,0 +1,17 @@
+{
+  "name": "nijitor-prototype",
+  "version": "0.1.0",
+  "description": "Prototype of Nijitor",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "Nijitor",
+    "nijigen",
+    "gamification",
+    "role-playing"
+  ],
+  "author": "Jean Yang",
+  "license": "MIT"
+}
